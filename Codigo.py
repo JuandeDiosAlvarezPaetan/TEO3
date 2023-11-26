@@ -55,7 +55,7 @@ def desencriptar(cipher, llave_privada):
 
 # Ejemplo de uso
 llave_publica, llave_privada = generar_claves()
-msj = "YONYON"
+msj = "Mensaje"
 print("Mensaje original:", msj)
 
 msj_encriptado = encriptar(msj, llave_publica)
