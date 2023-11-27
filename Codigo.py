@@ -1,6 +1,8 @@
 import random
 import string
 import os
+import sys
+
 
 def limpiar_consola():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -139,6 +141,7 @@ def autenticacion_usuario(imagenes_seleccionadas, pines_seleccionados, imagenes_
     else:
         print("Acceso denegado. Las selecciones no coinciden.")
         return False
+        sys.exit()
 
 # Obtener las selecciones aleatorias
 imagenes_seleccionadas, pines_seleccionados = seleccionar_imagenes_y_pines()
@@ -175,3 +178,16 @@ def generar_clave_ERSA():
     clave_privada_ersa = (clave_privada_ersa[0] + suma_aleatoria, clave_privada_ersa[1] + suma_aleatoria)
     
     return clave_publica_ersa, clave_privada_ersa 
+
+clave_publica_ERSA, clave_privada_ERSA = generar_clave_ERSA()
+
+mensaje_usuario = input("Ingrese el archivo que desee cifrar: ")
+
+# Encriptar el mensaje con la clave pública del usuario
+mensaje_encriptado_usuario = encriptar(mensaje_usuario, clave_publica_ERSA)
+
+# Almacenar el mensaje en la nube 
+mensaje_encriptado_nube = ''.join(str(num) for num in mensaje_encriptado_usuario)
+print("Mensaje encriptado almacenado en la nube:", mensaje_encriptado_nube)
+
+
