@@ -1,6 +1,11 @@
 import random
 import string
+import os
 
+def limpiar_consola():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    
 def mcd(a, b):
     while b:
         a, b = b, a % b
@@ -65,6 +70,11 @@ print("Mensaje encriptado:", ''.join(map(str, msj_encriptado)))
 msj_desencriptado = desencriptar(msj_encriptado, llave_privada)
 print("Mensaje desencriptado:", msj_desencriptado)
 
+#FIN RSA
+
+input("\n\nPresione enter para continuar...\n")
+
+#ERSA
 def seleccionar_imagenes_y_pines():
     opciones_imagenes = ['Gato', 'Perro', 'Motocicleta', 'Achimenea', 'Bicicleta', 'Laptop', 'Bufanda', 'Mouse', 'Tienda', 'Camion', 'Autobus']
     opciones_pines = ['1234', '5678', '2468', '1357', '7413', '4620', '2003', '9210', '0001']
@@ -115,7 +125,43 @@ def seleccionar_imagenes_y_pines():
     
     return imagenes_seleccionadas, pines_seleccionados
 
-# Muestra las opciones seleccionadas
-imagenes, pines = seleccionar_imagenes_y_pines()
-print("Imagenes seleccionadas:", imagenes)
-print("Pines seleccionados:", pines)
+def autenticacion_usuario(imagenes_seleccionadas, pines_seleccionados, imagenes_usuario, pines_usuario):
+    # Convertir todas las selecciones a minúsculas para evitar problemas de capitalización
+    imagenes_seleccionadas = [imagen.lower() for imagen in imagenes_seleccionadas]
+    pines_seleccionados = [pin.lower() for pin in pines_seleccionados]
+    imagenes_usuario = [imagen.lower() for imagen in imagenes_usuario]
+    pines_usuario = [pin.lower() for pin in pines_usuario]
+
+    # Verificar si las selecciones del usuario coinciden con las seleccionadas anteriormente
+    if sorted(imagenes_seleccionadas) == sorted(imagenes_usuario) and sorted(pines_seleccionados) == sorted(pines_usuario):
+        print("¡Acceso concedido! Las selecciones coinciden.")
+        return True
+    else:
+        print("Acceso denegado. Las selecciones no coinciden.")
+        return False
+
+# Obtener las selecciones aleatorias
+imagenes_seleccionadas, pines_seleccionados = seleccionar_imagenes_y_pines()
+print("Imágenes seleccionadas:", imagenes_seleccionadas)
+print("Pines seleccionados:", pines_seleccionados)
+
+# Obtener las selecciones del usuario
+imagenes_usuario = []
+pines_usuario = []
+
+input("\n\nPresione enter para continuar...\n")
+limpiar_consola()
+
+
+for i in range(3):
+    seleccion_imagen = input(f"Ingrese la imagen {i + 1}: ").lower()  # Convertir a minúsculas
+    imagenes_usuario.append(seleccion_imagen)
+
+print("\n\n")
+
+for i in range(3):
+    seleccion_pin = input(f"Ingrese el pin {i + 1}: ").lower()  # Convertir a minúsculas
+    pines_usuario.append(seleccion_pin)
+
+# Verificar autenticación
+autenticado = autenticacion_usuario(imagenes_seleccionadas, pines_seleccionados, imagenes_usuario, pines_usuario)
