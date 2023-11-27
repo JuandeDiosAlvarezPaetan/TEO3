@@ -165,3 +165,13 @@ for i in range(3):
 
 # Verificar autenticación
 autenticado = autenticacion_usuario(imagenes_seleccionadas, pines_seleccionados, imagenes_usuario, pines_usuario)
+
+def generar_clave_ERSA():
+    clave_publica_ersa, clave_privada_ersa = generar_claves()  # Generación de claves RSA
+    
+    #Logica difusa
+    suma_aleatoria = random.randint(1, 1000)
+    clave_publica_ersa = (clave_publica_ersa[0] + suma_aleatoria, clave_publica_ersa[1] + suma_aleatoria)
+    clave_privada_ersa = (clave_privada_ersa[0] + suma_aleatoria, clave_privada_ersa[1] + suma_aleatoria)
+    
+    return clave_publica_ersa, clave_privada_ersa 
